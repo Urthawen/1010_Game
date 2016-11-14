@@ -1,15 +1,34 @@
 #include "window.h"
-
+#include "pieces.h"
 
 void game(){
   int ch;
+  string DebugText;
   int h=10,w=10;
   Window menu(3,30,1,0);
-  Window plateau(h,w,1,6);
+  Window debugUrtha(5,70,1,6);
+  Window plateau(h,w,1,14);
   menu.setCouleurBordure(BRED);
+  debugUrtha.setCouleurBordure(BDEBUG);
   plateau.setCouleurBordure(BBLUE);
   
   menu.print(1,1,"Tapez q pour quitter !!!",WRED);
+  debugUrtha.print(1,1,"DEBUG_WINDOW", WBLACK);
+
+  Piece p1;
+  Piece p2(JDOWN, JRIGHT);
+  Piece p3(JRIGHT, JRIGHT, JRIGHT, JUP);
+  
+  ostringstream oss;
+  oss << "Jeton 1 = "<< p1.learnPiece();
+  DebugText = oss.str();  
+  debugUrtha.print(1,2,DebugText,WBLACK);
+
+  oss.str("");
+  oss.clear();
+  oss << "Jeton 2 = "<< p2.learnPiece();
+  DebugText = oss.str();  
+  debugUrtha.print(1,3,DebugText,WBLACK);
   
   int x=w/2,y=h/2;
   char p='X';

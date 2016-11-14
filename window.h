@@ -22,6 +22,7 @@ enum Color {
   BGREEN,  // couleur fond = vert,    couleur texte = noir 
   BMAGENTA,// couleur fond = magenta, couleur texte = noir
   BRED,    // couleur fond = rouge,   couleur texte = noir
+  BDEBUG,  // couleur fond = orange,  couleur texte = noir
 };
 
 
