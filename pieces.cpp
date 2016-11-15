@@ -1,4 +1,5 @@
 #include "pieces.h"
+#include "window.h"
 
 Piece::Piece()
 {
@@ -43,5 +44,37 @@ string Piece::learnPiece()
   response = oss.str();
 
   return response;
+}
+
+void Piece::drawPiece(Window *window) {
+  int x,y;
+  x=1;
+  y=6;
+  
+  window->print(x,y,"X", BDEBUG);
+  for(int i=0; i<4; i++)
+    {
+      switch(components[i]){
+      case -1:
+	break;
+      case 0:
+	y++;
+	window->print(x,y,"X", BDEBUG);
+	break;
+      case 1:
+	y--;
+	window->print(x,y,"X", BDEBUG);
+	break;
+      case 2:
+	x--;
+	window->print(x,y,"X", BDEBUG);
+	break;
+      case 3:
+	x++;
+	window->print(x,y,"X", BDEBUG);
+	break;
+      }
+    }
+  return;
 }
 

@@ -19,7 +19,7 @@ void init_colors(void)
   init_pair(BGREEN,   COLOR_BLACK, COLOR_GREEN); 
   init_pair(BMAGENTA, COLOR_BLACK, COLOR_MAGENTA);
   init_pair(BRED,     COLOR_BLACK, COLOR_RED);
-  init_pair(BDEBUG,   COLOR_BLACK, COLOR_YELLOW);
+  init_pair(BDEBUG,   COLOR_WHITE, COLOR_YELLOW);
 }
 
 

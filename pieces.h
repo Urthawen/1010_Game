@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "window.h"
 
 using namespace std;
 
@@ -38,6 +39,8 @@ class Piece{
   Piece(PJeton val1, PJeton val2, PJeton val3, PJeton val4);
 
   string learnPiece();
+  void drawPiece(Window *window);
+  
 };
 
 
