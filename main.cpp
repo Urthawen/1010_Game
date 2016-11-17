@@ -1,18 +1,23 @@
 #include "window.h"
 #include "pieces.h"
+#include <string.h>
 
 void game(){
+  
+  /*VARIABLES*/
   int ch;
   string DebugText;
   int h=10,w=10;
+  /************/
+
+  
+  /*WINDOW_PARAMETERS*/
   Window menu(4,30,1,0);
   Window score(4,30,35,0);
   Window showPiece(10,30,15,15);
-  Window debugUrtha(5,70,1,7);
   Window plateau(h,w,1,15);
   menu.setCouleurBordure(BRED);
   score.setCouleurBordure(BRED);
-  debugUrtha.setCouleurBordure(BDEBUG);
   showPiece.setCouleurBordure(WGREEN);
   plateau.setCouleurBordure(BBLUE);
   
@@ -23,34 +28,21 @@ void game(){
   score.print(1,2,"15245");
 
   showPiece.print(6,1,"Pièces disponible", WGREEN);
-  
-  debugUrtha.print(1,1,"DEBUG_WINDOW", WBLACK);
+  /**************/
 
+  
+  /*PIECES_CREATE*/
   Piece p1;
   Piece p2(JDOWN, JRIGHT);
   Piece p3(JRIGHT, JRIGHT, JRIGHT, JUP);
-  
-  ostringstream oss;
-  oss << "Jeton 1 = "<< p1.learnPiece();
-  DebugText = oss.str();  
-  debugUrtha.print(1,2,DebugText);
-
-  oss.str("");
-  oss.clear();
-  oss << "Jeton 2 = "<< p2.learnPiece();
-  DebugText = oss.str();  
-  debugUrtha.print(1,3,DebugText);
+  /**************/
   
   int x=w/2,y=h/2;
   char p='X';
   Color col=WBLUE;
   plateau.print(x,y,p,col);
 
-
-
   p3.drawPiece(&showPiece);
-  
-  //END LEARNING BITCH
   
   while((ch = getch()) != 'q')
     {
@@ -93,9 +85,42 @@ void game(){
     }
 }
 
-int main(){
-  startProgramX();
-  game();
-  stopProgramX();
+void displayOption(char **argv){
+  int ch;
+  if(strcmp(argv[1],"--author")==0){
+    cout<<"***Authors****"<<endl;
+    cout<<"=== Bouffard-Vercelli Florian"<<endl;
+    cout<<"=== Husson Alexi"<<endl;
+    cout<<"=== Capron Yvan"<<endl;
+    cout<<"=== Lemaître Thomas"<<endl;
+    }
+  else if(strcmp(argv[1],"--help")==0){
+    cout<<"help"<<endl;
+  }
+  else if(strcmp(argv[1],"--version")==0){
+    cout<<"version"<<endl;
+  }
+  else{
+      cout<<"Commande non reconnue. Commandes disponible : (--help, --version et --author)"<<endl;
+    }
+  
+  return;
+}
+
+int main(int argc, char **argv){
+
+  switch(argc){
+  case 1:
+    startProgramX();
+    game();
+    stopProgramX();
+    break;
+  case 2:
+    displayOption(argv);
+    break;
+  default:
+    cout<<"== ERROR == Vous avez mis trop d'arguments à la suite. (--help, --version ou --author)"<<endl;
+    break;
+  }  
   return 0;
 }
