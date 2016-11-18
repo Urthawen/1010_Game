@@ -39,7 +39,7 @@ class Piece{
   Piece(PJeton val1, PJeton val2, PJeton val3, PJeton val4);
 
   string learnPiece();
-  void drawPiece(Window *window);
+  void drawPiece(Window *window, int x, int y);
   
 };
 

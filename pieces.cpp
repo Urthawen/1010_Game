@@ -1,5 +1,4 @@
 #include "pieces.h"
-#include "window.h"
 
 Piece::Piece()
 {
@@ -46,10 +45,7 @@ string Piece::learnPiece()
   return response;
 }
 
-void Piece::drawPiece(Window *window) {
-  int x,y;
-  x=1;
-  y=6;
+void Piece::drawPiece(Window *window, int x, int y) {
   
   window->print(x,y,"X", BDEBUG);
   for(int i=0; i<4; i++)
@@ -59,19 +55,19 @@ void Piece::drawPiece(Window *window) {
 	break;
       case 0:
 	y++;
-	window->print(x,y,"X", BDEBUG);
+	window->print(x,y," ", BDEBUG);
 	break;
       case 1:
 	y--;
-	window->print(x,y,"X", BDEBUG);
+	window->print(x,y," ", BDEBUG);
 	break;
       case 2:
 	x--;
-	window->print(x,y,"X", BDEBUG);
+	window->print(x,y," ", BDEBUG);
 	break;
       case 3:
 	x++;
-	window->print(x,y,"X", BDEBUG);
+	window->print(x,y," ", BDEBUG);
 	break;
       }
     }
