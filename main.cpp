@@ -93,12 +93,10 @@ void game(){
   /***************/
 
 
-  int xPiece=w/2,yPiece=h/2;
+  int xPiece=0,yPiece=0;
   Color col = BMAGENTA;
   char p ='X';
-  int currentCell=50;
-
-  boardGame.readBoard();
+  int currentCell=0;
   
   int idPieceChoose=0;
   pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
@@ -117,37 +115,52 @@ void game(){
 	break;
       case KEY_UP:
         plateau.clear();
+	currentCell-=10;
 	yPiece--;
 	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	boardGame.refresh(&plateau);
 	break;
       case KEY_DOWN:
 	plateau.clear();
+	currentCell+=10;
 	yPiece++;
         pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	boardGame.refresh(&plateau);
 	break;
       case KEY_LEFT:
 	plateau.clear();
+	currentCell--;
 	xPiece--;
         pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	boardGame.refresh(&plateau);
 	break;
       case KEY_RIGHT:
 	plateau.clear();
+	currentCell++;
+	cout<<currentCell<<endl;
 	xPiece++;
         pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	boardGame.refresh(&plateau);
 	break;
       case '\n':
-	xPiece=w/2,yPiece=h/2;
-	p='X';
-	//plateau.print(x,y,p,col);
+	xPiece=0,yPiece=0;
+	plateau.clear();
+	boardGame.insertPiece(p1, currentCell);
+	currentCell=0;
+	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	boardGame.refresh(&plateau);
 	break;
       case '\t':
 	plateau.clear();
 	if(idPieceChoose==2){idPieceChoose=0;}
 	else{idPieceChoose++;}
 	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	boardGame.refresh(&plateau);
 	break;
       }
     }
+
+  boardGame.readBoard();
 }
 
 void displayOption(char **argv){

@@ -47,7 +47,7 @@ string Piece::learnPiece()
 
 void Piece::drawPiece(Window *window, int x, int y) {
   
-  window->print(x,y,"X", BDEBUG);
+  window->print(x,y,"X", WGREEN);
   for(int i=0; i<4; i++)
     {
       switch(components[i]){
@@ -55,19 +55,19 @@ void Piece::drawPiece(Window *window, int x, int y) {
 	break;
       case 0:
 	y++;
-	window->print(x,y," ", BDEBUG);
+	window->print(x,y," ", WGREEN);
 	break;
       case 1:
 	y--;
-	window->print(x,y," ", BDEBUG);
+	window->print(x,y," ", WGREEN);
 	break;
       case 2:
 	x--;
-	window->print(x,y," ", BDEBUG);
+	window->print(x,y," ", WGREEN);
 	break;
       case 3:
 	x++;
-	window->print(x,y," ", BDEBUG);
+	window->print(x,y," ", WGREEN);
 	break;
       }
     }
