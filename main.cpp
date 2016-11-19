@@ -86,9 +86,12 @@ void game(){
 
 
   int x=w/2,y=h/2;
-  char p='X';
-  Color col=WBLUE;
-  plateau.print(x,y,p,col);
+  Color col = BMAGENTA;
+  char p ='X';
+  
+  int idPieceChoose=0;
+  pieceChoose[idPieceChoose].drawPiece(&plateau,x,y);
+  
   while((ch = getch()) != 'q')
     {
       switch (ch) {
@@ -102,8 +105,8 @@ void game(){
 	plateau.clear();
 	break;
       case KEY_UP:
-	plateau.print(x,y,' ');
-	plateau.print(x,--y,p,col);
+        plateau.clear();
+	pieceChoose[idPieceChoose].drawPiece(&plateau,x,y--);
 	break;
       case KEY_DOWN:
 	plateau.print(x,y,' ');
@@ -120,13 +123,13 @@ void game(){
       case '\n':
 	x=w/2,y=h/2;
 	p='X';
-	plateau.print(x,y,p,col);
-	//pieceChoose[0].drawPiece(&plateau,x,y);
+	//plateau.print(x,y,p,col);
 	break;
       case '\t':
-	Color tmp= menu.getCouleurBordure();
-	menu.setCouleurBordure(plateau.getCouleurBordure());
-	plateau.setCouleurBordure(tmp);
+	plateau.clear();
+	if(idPieceChoose==2){idPieceChoose=0;}
+	else{idPieceChoose++;}
+	pieceChoose[idPieceChoose].drawPiece(&plateau,x,y);
 	break;
       }
     }
