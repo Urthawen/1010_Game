@@ -8,10 +8,10 @@
 using namespace std;
 
 enum PJeton {
-  JDOWN,   //place un jeton en bas
-  JUP,     //place un jeton en haut
-  JLEFT,   //place un jeton à gauche
-  JRIGHT   //place un jeton à droite
+  JDOWN,   //place un jeton en bas      0
+  JUP,     //place un jeton en haut     1
+  JLEFT,   //place un jeton à gauche    2
+  JRIGHT   //place un jeton à droite    3
 };
 
 class Piece{
@@ -40,6 +40,7 @@ class Piece{
 
   string learnPiece();
   void drawPiece(Window *window, int x, int y);
+  int getComponent(int token);
   
 };
 

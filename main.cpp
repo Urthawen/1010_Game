@@ -137,7 +137,6 @@ void game(){
       case KEY_RIGHT:
 	plateau.clear();
 	currentCell++;
-	cout<<currentCell<<endl;
 	xPiece++;
         pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
@@ -145,7 +144,7 @@ void game(){
       case '\n':
 	xPiece=0,yPiece=0;
 	plateau.clear();
-	boardGame.insertPiece(p1, currentCell);
+	boardGame.insertPiece(pieceChoose[idPieceChoose], currentCell);
 	currentCell=0;
 	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
@@ -159,8 +158,6 @@ void game(){
 	break;
       }
     }
-
-  boardGame.readBoard();
 }
 
 void displayOption(char **argv){

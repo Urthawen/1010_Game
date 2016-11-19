@@ -74,3 +74,4 @@ void Piece::drawPiece(Window *window, int x, int y) {
   return;
 }
 
+int Piece::getComponent(int token){return components[token];}
