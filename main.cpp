@@ -1,5 +1,6 @@
 #include "window.h"
 #include "pieces.h"
+#include "plateau.h"
 #include <string.h>
 #include <cstdlib>
 #include <ctime>
@@ -11,6 +12,13 @@ void game(){
   string DebugText;
   int h=10,w=10;
   /************/
+
+  /*CREATE_BOARD*/
+
+  Board boardGame;
+  
+
+  /*************/
 
   
   /*WINDOW_PARAMETERS*/
@@ -85,12 +93,15 @@ void game(){
   /***************/
 
 
-  int x=w/2,y=h/2;
+  int xPiece=w/2,yPiece=h/2;
   Color col = BMAGENTA;
   char p ='X';
+  int currentCell=50;
+
+  boardGame.readBoard();
   
   int idPieceChoose=0;
-  pieceChoose[idPieceChoose].drawPiece(&plateau,x,y);
+  pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
   
   while((ch = getch()) != 'q')
     {
@@ -106,22 +117,26 @@ void game(){
 	break;
       case KEY_UP:
         plateau.clear();
-	pieceChoose[idPieceChoose].drawPiece(&plateau,x,y--);
+	yPiece--;
+	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       case KEY_DOWN:
-	plateau.print(x,y,' ');
-	plateau.print(x,++y,p,col);
+	plateau.clear();
+	yPiece++;
+        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       case KEY_LEFT:
-	plateau.print(x,y,' ');
-	plateau.print(--x,y,p,col);
+	plateau.clear();
+	xPiece--;
+        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       case KEY_RIGHT:
-	plateau.print(x,y,' ');
-	plateau.print(++x,y,p,col);
+	plateau.clear();
+	xPiece++;
+        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       case '\n':
-	x=w/2,y=h/2;
+	xPiece=w/2,yPiece=h/2;
 	p='X';
 	//plateau.print(x,y,p,col);
 	break;
@@ -129,7 +144,7 @@ void game(){
 	plateau.clear();
 	if(idPieceChoose==2){idPieceChoose=0;}
 	else{idPieceChoose++;}
-	pieceChoose[idPieceChoose].drawPiece(&plateau,x,y);
+	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       }
     }

@@ -1,7 +1,7 @@
 PROG=1010
 CC=g++
 FLAGS=-Wall
-SRCS=main.cpp pieces.cpp window.cpp
+SRCS=main.cpp pieces.cpp window.cpp plateau.cpp
 EXT=*.o
 OBJS=$(SRCS:.c=.o)
 
