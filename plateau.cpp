@@ -1,6 +1,5 @@
 #include "plateau.h"
 
-
 Board::Board(){
   for(int i=0;i<100;i++){cellBoard[i]=0;}
 }
@@ -75,8 +74,6 @@ void Board::insertPiece(Piece piece, int cellId){
   
   }
   
-  
-  
   return;
 }
 
@@ -96,4 +93,36 @@ void Board::refresh(Window *window){
       else{y++;}
     }
   return;
+}
+
+int Board::checkLine(){
+  int lineNeedDestroy=0;
+  int count=0;
+  
+  for(int i=0;i<100;i++)
+    {
+      if((i)%10==0){count=0;}      
+      if(cellBoard[i]==1){count++;}      
+      if(count>=10){
+	destroyLine(i-9);
+	lineNeedDestroy++;
+	count=0;
+      }
+    }
+  return lineNeedDestroy;
+}
+
+int Board::checkField(){
+
+}
+
+void Board::destroyLine(int i){
+  for(int x=i;x<i+10;x++){
+    cellBoard[x]=0;
+  }
+  return;
+}
+
+void Board::destroyField(){
+
 }

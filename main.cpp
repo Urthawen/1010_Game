@@ -1,6 +1,7 @@
 #include "window.h"
 #include "pieces.h"
 #include "plateau.h"
+#include "score.h"
 #include <string.h>
 #include <cstdlib>
 #include <ctime>
@@ -14,10 +15,11 @@ void game(){
   /************/
 
   /*CREATE_BOARD*/
-
   Board boardGame;
-  
+  /*************/
 
+  /*SCORE_PLAYER*/
+  Score scorePlayer;
   /*************/
 
   
@@ -26,10 +28,13 @@ void game(){
   Window bestScore(8,30,35,0);
   Window showPiece(19,21,1,7);
   Window plateau(h,w,28,15);
+  Window scorePlayerW(5,20,41,15);
+  
   menu.setCouleurBordure(BRED);
   bestScore.setCouleurBordure(BRED);
   showPiece.setCouleurBordure(WGREEN);
   plateau.setCouleurBordure(BBLUE);
+  scorePlayerW.setCouleurBordure(WGREEN);
 
   /*MENU*/
   menu.print(1,1,"Urthawen",WRED);
@@ -45,6 +50,9 @@ void game(){
   bestScore.print(1,5," 9758\t Rozsas");
   bestScore.print(1,6," 9574\t Spitalas");
   /**********/
+
+  scorePlayerW.print(1,1,"Score", WGREEN);
+  scorePlayerW.print(1,2,"0");
 
   showPiece.print(2,1,"Pieces Availables", WGREEN);
   /**************/
@@ -97,6 +105,7 @@ void game(){
   Color col = BMAGENTA;
   char p ='X';
   int currentCell=0;
+  int checkLine=0;
   
   int idPieceChoose=0;
   pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
@@ -141,13 +150,15 @@ void game(){
         pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
 	break;
-      case '\n':
+      case '\n':	
 	xPiece=0,yPiece=0;
 	plateau.clear();
 	boardGame.insertPiece(pieceChoose[idPieceChoose], currentCell);
+        scorePlayer.setScore(boardGame.checkLine());
 	currentCell=0;
 	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
+	scorePlayer.refresh(&scorePlayerW, scorePlayer.getScore());
 	break;
       case '\t':
 	plateau.clear();
@@ -173,7 +184,7 @@ void displayOption(char **argv){
     cout<<"A COMPLETER"<<endl;
   }
   else if(strcmp(argv[1],"--version")==0){
-    cout<<"1010 - Version 0.6 ALPHA"<<endl;
+    cout<<"1010 - Version 1.1 ALPHA"<<endl;
   }
   else{
       cout<<"Commande non reconnue. Commandes disponible : (--help, --version et --authors)"<<endl;
