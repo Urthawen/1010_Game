@@ -17,8 +17,9 @@ class Board{
   void readBoard();
   void refresh(Window *window);
   void insertPiece(Piece piece, int cellId);
-  int checkLF();
+  int checkLF(Piece piece, int currentCell);
   void destroyLine(int i);
+  void destroyLine(int i, int *exception);
   void destroyField(int i);
   void destroyLineField(int i, int j);
   

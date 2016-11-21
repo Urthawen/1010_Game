@@ -58,18 +58,27 @@ void game(){
   /**************/
 
   
-  /*PIECES_CREATE*/
+  /*DEFAULT_PIECES_CREATE*/
   Piece p1;
-  Piece p2(JDOWN, JRIGHT);
-  Piece p3(JRIGHT, JRIGHT, JRIGHT, JUP);
-  Piece p4(JRIGHT, JUP, JLEFT);
-  Piece p5(JLEFT, JDOWN);
+  Piece p2(JUP);
+  Piece p3(JUP, JUP);
+  Piece p4(JUP, JUP, JUP);
+  Piece p5(JUP, JUP, JUP, JUP);
+  Piece p6(JRIGHT);
+  Piece p7(JRIGHT, JRIGHT);
+  Piece p8(JRIGHT, JRIGHT, JRIGHT);
+  Piece p9(JRIGHT, JRIGHT, JRIGHT, JRIGHT);
+  Piece p10(JRIGHT, JDOWN);
+  Piece p11(JDOWN, JRIGHT);
+  Piece p12(JDOWN, JRIGHT, JDOWN);
+  Piece p13(JRIGHT, JUP, JLEFT);
+  Piece p14(JUP, JLEFT, JLEFT);
   /**************/
 
   /**Random_choose*/
 
-  Piece randomTable[5]={p1, p2, p3, p4, p5};
-  int pieceBan[5]={0,0,0,0,0};
+  Piece randomTable[14]={p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14};
+  int pieceBan[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0};
   Piece pieceChoose[3]={};
 
   int chooseId=0;
@@ -77,7 +86,7 @@ void game(){
   srand(time(NULL));
   while(chooseId<3)
     {
-      int randomNumber=rand()%5;
+      int randomNumber=rand()%14;
       if(pieceBan[randomNumber]==0)
 	{
 	  pieceBan[randomNumber]=1;
@@ -85,8 +94,6 @@ void game(){
 	  chooseId++;
 	}
     } 
-  
-  //pieceChoose[0].drawPiece(&showPiece);
   
 
   /********/
@@ -126,35 +133,35 @@ void game(){
         plateau.clear();
 	currentCell-=10;
 	yPiece--;
-	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
+	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       case KEY_DOWN:
 	plateau.clear();
 	currentCell+=10;
 	yPiece++;
-        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
+        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       case KEY_LEFT:
 	plateau.clear();
 	currentCell--;
 	xPiece--;
-        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
+        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       case KEY_RIGHT:
 	plateau.clear();
 	currentCell++;
 	xPiece++;
-        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
+        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	break;
       case '\n':	
 	xPiece=0,yPiece=0;
 	plateau.clear();
 	boardGame.insertPiece(pieceChoose[idPieceChoose], currentCell);
-        scorePlayer.setScore(boardGame.checkLF());
+        scorePlayer.setScore(boardGame.checkLF(pieceChoose[idPieceChoose], currentCell));
 	currentCell=0;
 	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);
