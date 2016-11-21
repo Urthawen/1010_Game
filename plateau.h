@@ -17,10 +17,10 @@ class Board{
   void readBoard();
   void refresh(Window *window);
   void insertPiece(Piece piece, int cellId);
-  int checkLine();
-  int checkField();
+  int checkLF();
   void destroyLine(int i);
-  void destroyField();
+  void destroyField(int i);
+  void destroyLineField(int i, int j);
   
 };
 

@@ -154,7 +154,7 @@ void game(){
 	xPiece=0,yPiece=0;
 	plateau.clear();
 	boardGame.insertPiece(pieceChoose[idPieceChoose], currentCell);
-        scorePlayer.setScore(boardGame.checkLine());
+        scorePlayer.setScore(boardGame.checkLF());
 	currentCell=0;
 	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
 	boardGame.refresh(&plateau);

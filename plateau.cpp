@@ -95,8 +95,12 @@ void Board::refresh(Window *window){
   return;
 }
 
-int Board::checkLine(){
-  int lineNeedDestroy=0;
+int Board::checkLF(){
+  int lineDestroy=0;
+  int fieldDestroy=0;
+  int points=0;
+
+  int numberOfField=0;
   int count=0;
   
   for(int i=0;i<100;i++)
@@ -105,15 +109,67 @@ int Board::checkLine(){
       if(cellBoard[i]==1){count++;}      
       if(count>=10){
 	destroyLine(i-9);
-	lineNeedDestroy++;
+	lineDestroy++;
 	count=0;
       }
     }
-  return lineNeedDestroy;
-}
+  
+  count=0;
+  
+  while(numberOfField<10){
+    for(int i=numberOfField;i<100;i+=10)
+      {
+	if(cellBoard[i]==1){count++;}
+	if(count>=10){
+	  fieldDestroy++;
+	  count=0;
+	}
+      }
+    numberOfField++;
+    count=0;
+  }
 
-int Board::checkField(){
+  if(lineDestroy>=1 && fieldDestroy >=1){
+    //Bonus de points
+  }
 
+  /*LINE DESTROY >= 1******/
+  else if(lineDestroy>=1){
+    count=0;
+    points++;
+    for(int i=0;i<100;i++)
+    {
+      if((i)%10==0){count=0;}      
+      if(cellBoard[i]==1){count++;}      
+      if(count>=10){
+	destroyLine(i-9);
+	count=0;
+      }
+    }
+  }
+  /***********************/
+
+  
+  else if(fieldDestroy>=1){
+     count=0;
+     numberOfField=0;
+     points++;
+     while(numberOfField<10){
+       for(int i=numberOfField;i<100;i+=10)
+	 {
+	   if(cellBoard[i]==1){count++;}
+	   if(count>=10){
+	     destroyField(i-90);
+	     cout<<"lol"<<endl;
+	     count=0;
+	   }
+	 }
+       numberOfField++;
+       count=0;
+     }
+  }
+  
+  return points;
 }
 
 void Board::destroyLine(int i){
@@ -123,6 +179,14 @@ void Board::destroyLine(int i){
   return;
 }
 
-void Board::destroyField(){
+void Board::destroyField(int i){
+  for(int x=i;x<100;x+=10)
+    {
+      cellBoard[x]=0;
+    }
+  return;
+}
+
+void Board::destroyLineField(int i, int j){
 
 }
