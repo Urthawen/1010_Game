@@ -9,7 +9,7 @@ void Board::readBoard(){
   return;
 }
 
-void Board::insertPiece(Piece piece, int cellId){
+void Board::insertPiece(Piece piece, int cellId, int currentPiece, int *pieceUse){
 
   if(cellBoard[cellId]==0){
     int cell=cellId;
@@ -46,6 +46,7 @@ void Board::insertPiece(Piece piece, int cellId){
 	cell=cellId;
 	cellBoard[cell]=1;
 	i=0;
+	pieceUse[currentPiece]=1;
 	
 	while(i<4 && piece.getComponent(i)!=-1){
     switch(piece.getComponent(i)){

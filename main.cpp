@@ -80,13 +80,14 @@ void game(){
   Piece randomTable[14]={p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14};
   int pieceBan[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0};
   Piece pieceChoose[3]={};
-
+  int pieceUse[3]={0,0,0};
+  int randomNumber =0;
   int chooseId=0;
   
   srand(time(NULL));
   while(chooseId<3)
     {
-      int randomNumber=rand()%14;
+      randomNumber=rand()%14;
       if(pieceBan[randomNumber]==0)
 	{
 	  pieceBan[randomNumber]=1;
@@ -113,6 +114,7 @@ void game(){
   char p ='X';
   int currentCell=0;
   int checkLine=0;
+  bool changePiece=true;
   
   int idPieceChoose=0;
   pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
@@ -160,10 +162,46 @@ void game(){
       case '\n':	
 	xPiece=0,yPiece=0;
 	plateau.clear();
-	boardGame.insertPiece(pieceChoose[idPieceChoose], currentCell);
-        scorePlayer.setScore(boardGame.checkLF(pieceChoose[idPieceChoose], currentCell));
+	if(pieceUse[idPieceChoose]==0){
+	  boardGame.insertPiece(pieceChoose[idPieceChoose], currentCell, idPieceChoose, pieceUse);
+	  scorePlayer.setScore(boardGame.checkLF(pieceChoose[idPieceChoose], currentCell));
+	}
+	
+	for(int i=0;i<3;i++)
+	  {
+	    if (pieceUse[i]==0){changePiece=false;}
+	  }
+	if(changePiece){
+	  chooseId=0;
+	  while(chooseId<3)
+	    {
+	      randomNumber=rand()%14;
+	      if(pieceBan[randomNumber]==0)
+		{
+		  pieceBan[randomNumber]=1;
+		  pieceChoose[chooseId]=randomTable[randomNumber];
+		  chooseId++;
+		}
+	    } 
+  
+
+	  /********/
+
+	  /*****DRAWING***/
+	  showPiece.clear();
+	  pieceChoose[0].drawPiece(&showPiece,4,6);
+	  pieceChoose[1].drawPiece(&showPiece,14,6);
+	  pieceChoose[2].drawPiece(&showPiece,10,11);
+
+	  for(int i=0;i<3;i++){pieceUse[i]=0;}
+	  for(int i=0;i<14;i++){pieceBan[i]=0;}
+	}
+	changePiece=true;
 	currentCell=0;
+	if(idPieceChoose==2){idPieceChoose=0;}
+	else{idPieceChoose++;}
 	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	
 	boardGame.refresh(&plateau);
 	scorePlayer.refresh(&scorePlayerW, scorePlayer.getScore());
 	break;
