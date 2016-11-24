@@ -62,3 +62,51 @@ void randomChoose(Piece *randomTable, Piece *pieceChoose, Window *window){
   pieceChoose[1].drawPiece(window,14,6);
   pieceChoose[2].drawPiece(window,10,11);
 }
+
+
+void playerMove(int mod, Window *plateau,int *currentCell,int *xPiece,int *yPiece,Board *boardGame,Piece *pieceChoose,int idPieceChoose){
+  switch(mod){
+  case 0:
+    plateau->clear();
+    *currentCell-=10;
+    *yPiece-=1;
+    boardGame->refresh(plateau);    
+    pieceChoose[idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
+    break;
+  case 1:
+    plateau->clear();
+    *currentCell+=10;
+    *yPiece+=1;
+    boardGame->refresh(plateau);
+    pieceChoose[idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
+    break;
+  case 2:
+    plateau->clear();
+    *currentCell-=1;
+    *xPiece-=1;
+    boardGame->refresh(plateau);
+    pieceChoose[idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
+    break;
+  case 3:
+    plateau->clear();
+    *currentCell+=1;
+    *xPiece+=1;
+    boardGame->refresh(plateau);
+    pieceChoose[idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
+    break;
+  }
+}
+
+
+void playerAction(Window *plateau,int *pieceUse,int idPieceChoose,Board *boardGame,Score *scorePlayer,Piece *pieceChoose,int currentCell){
+
+  
+	plateau->clear();
+	if(pieceUse[idPieceChoose]==0){
+	  boardGame->insertPiece(pieceChoose[idPieceChoose], currentCell, idPieceChoose, pieceUse);
+	  scorePlayer->setScore(boardGame->checkLF(pieceChoose[idPieceChoose], currentCell));
+	}
+  
+  
+  return;
+}

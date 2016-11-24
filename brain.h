@@ -23,4 +23,30 @@ void randomChoose(Piece *randomTable,
 		  Piece *pieceChoose,
 		  Window *showPiece);
 
+/**
+MOD   0 => MOVE_UP
+      1 => MOVE_DOWN
+      2 => MOVE_LEFT
+      3 => MOVE_RIGHT
+
+ **/
+void playerMove(int mod,
+		Window *plateau,
+		int *currentCell,
+		int *xPiece,
+		int *yPiece,
+		Board *boardGame,
+		Piece *pieceChoose,
+		int idPieceChoose);
+
+void playerAction(Window *plateau,
+		  int *pieceUse,
+		  int idPieceChoose,
+		  Board *boardGame,
+		  Score *scorePlayer,
+		  Piece *pieceChoose,
+		  int currentCell);
+
+//void changePiece();
+
 #endif

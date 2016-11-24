@@ -72,49 +72,21 @@ void game(){
   while((ch = getch()) != 'q')
     {
       switch (ch) {
-      case '1':
-	
-	break;
-      case '2':
-	break;
-      case 'c':
-	plateau.clear();
-	break;
       case KEY_UP:
-        plateau.clear();
-	currentCell-=10;
-	yPiece--;
-	boardGame.refresh(&plateau);
-	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	playerMove(0, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
 	break;
       case KEY_DOWN:
-	plateau.clear();
-	currentCell+=10;
-	yPiece++;
-	boardGame.refresh(&plateau);
-        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	playerMove(1, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
 	break;
       case KEY_LEFT:
-	plateau.clear();
-	currentCell--;
-	xPiece--;
-	boardGame.refresh(&plateau);
-        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	playerMove(2, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
 	break;
       case KEY_RIGHT:
-	plateau.clear();
-	currentCell++;
-	xPiece++;
-	boardGame.refresh(&plateau);
-        pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+	playerMove(3, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
 	break;
-      case '\n':	
+      case '\n':
+	playerAction(&plateau,pieceUse,idPieceChoose,&boardGame,&scorePlayer,pieceChoose,currentCell);
 	xPiece=0,yPiece=0;
-	plateau.clear();
-	if(pieceUse[idPieceChoose]==0){
-	  boardGame.insertPiece(pieceChoose[idPieceChoose], currentCell, idPieceChoose, pieceUse);
-	  scorePlayer.setScore(boardGame.checkLF(pieceChoose[idPieceChoose], currentCell));
-	}
 	
 	for(int i=0;i<3;i++)
 	  {
@@ -131,12 +103,8 @@ void game(){
 		  pieceChoose[chooseId]=randomTable[randomNumber];
 		  chooseId++;
 		}
-	    } 
-  
-
-	  /********/
-
-	  /*****DRAWING***/
+	    }
+	  
 	  showPiece.clear();
 	  pieceChoose[0].drawPiece(&showPiece,4,6);
 	  pieceChoose[1].drawPiece(&showPiece,14,6);
