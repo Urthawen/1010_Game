@@ -67,4 +67,6 @@ void rotationPiece(Window *plateau,
 		   int xPiece,
 		   int yPiece);
 
+void displayOption(char **argv);
+
 #endif

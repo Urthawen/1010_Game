@@ -57,11 +57,9 @@ void game(){
   /**INIT_GAME**/
   initGame(&menu, &bestScore, &showPiece, &plateau, &scorePlayerW);
   randomChoose(randomTable, pieceChoose, &showPiece);
-  /*****/
-
-
- 
   pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+  /*****/
+ 
   
   while((ch = getch()) != 'q')
     {
@@ -89,26 +87,6 @@ void game(){
     }
 }
 
-void displayOption(char **argv){
-  if(strcmp(argv[1],"--authors")==0){
-    cout<<"***Authors****"<<endl;
-    cout<<"=== Bouffard-Vercelli Florian"<<endl;
-    cout<<"=== Husson Alexi"<<endl;
-    cout<<"=== Capron Yvan"<<endl;
-    cout<<"=== Lemaître Thomas"<<endl;
-    }
-  else if(strcmp(argv[1],"--help")==0){
-    cout<<"A COMPLETER"<<endl;
-  }
-  else if(strcmp(argv[1],"--version")==0){
-    cout<<"1010 - Version 1.1 ALPHA"<<endl;
-  }
-  else{
-      cout<<"Commande non reconnue. Commandes disponible : (--help, --version et --authors)"<<endl;
-    }
-  
-  return;
-}
 
 int main(int argc, char **argv){
 

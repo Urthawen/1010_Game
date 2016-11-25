@@ -166,3 +166,25 @@ void rotationPiece(Window *plateau,int *idPieceChoose,Piece *pieceChoose,Board *
   boardGame->refresh(plateau);
   return;
 }
+
+void displayOption(char **argv){
+  if(strcmp(argv[1],"--authors")==0){
+    cout<<"***Authors****"<<endl;
+    cout<<"=== Bouffard-Vercelli Florian"<<endl;
+    cout<<"=== Husson Alexi"<<endl;
+    cout<<"=== Capron Yvan"<<endl;
+    cout<<"=== Lemaître Thomas"<<endl;
+    }
+  else if(strcmp(argv[1],"--help")==0){
+    cout<<"A COMPLETER"<<endl;
+  }
+  else if(strcmp(argv[1],"--version")==0){
+    cout<<"Jeu du 1010 - Version 1.9"<<endl;
+  }
+  else{
+      cout<<"Commande non reconnue. Commandes disponible : (--help, --version et --authors)"<<endl;
+    }
+  
+  return;
+}
+
