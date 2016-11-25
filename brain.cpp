@@ -110,3 +110,59 @@ void playerAction(Window *plateau,int *pieceUse,int idPieceChoose,Board *boardGa
   
   return;
 }
+
+
+void InteractionPiece(int *pieceUse,Piece *randomTable,Piece *pieceChoose,int *currentCell,int *xPiece,int *yPiece,int *idPieceChoose,Board *boardGame,Window *plateau,Score *scorePlayer,Window *scorePlayerW, Window *showPiece){
+  int chooseId=0;
+  int randomNumber=0;
+  bool changePiece=true;
+  int pieceBan[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+  for(int i=0;i<3;i++)
+	  {
+	    if (pieceUse[i]==0){changePiece=false;}
+	  }
+	if(changePiece){
+	  chooseId=0;
+	  while(chooseId<3)
+	    {
+	      randomNumber=rand()%14;
+	      if(pieceBan[randomNumber]==0)
+		{
+		  pieceBan[randomNumber]=1;
+		  pieceChoose[chooseId]=randomTable[randomNumber];
+		  chooseId++;
+		}
+	    }
+	  
+	  showPiece->clear();
+	  pieceChoose[0].drawPiece(showPiece,4,6);
+	  pieceChoose[1].drawPiece(showPiece,14,6);
+	  pieceChoose[2].drawPiece(showPiece,10,11);
+
+	  for(int i=0;i<3;i++){pieceUse[i]=0;}
+	  for(int i=0;i<14;i++){pieceBan[i]=0;}
+	}
+	*currentCell=0;
+	*xPiece=0;
+	*yPiece=0;
+	if(*idPieceChoose==2){*idPieceChoose=0;}
+	else{*idPieceChoose+=1;}
+	pieceChoose[*idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
+	
+	boardGame->refresh(plateau);
+	scorePlayer->refresh(scorePlayerW, scorePlayer->getScore());
+  
+  return;
+}
+
+
+void rotationPiece(Window *plateau,int *idPieceChoose,Piece *pieceChoose,Board *boardGame,int xPiece,int yPiece){
+
+  plateau->clear();
+  if(*idPieceChoose==2){*idPieceChoose=0;}
+  else{*idPieceChoose+=1;}
+  pieceChoose[*idPieceChoose].drawPiece(plateau,xPiece,yPiece);
+  boardGame->refresh(plateau);
+  return;
+}

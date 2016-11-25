@@ -47,6 +47,24 @@ void playerAction(Window *plateau,
 		  Piece *pieceChoose,
 		  int currentCell);
 
-//void changePiece();
+void InteractionPiece(int *pieceUse,
+		 Piece *randomTable,
+		 Piece *pieceChoose,
+		 int *currentCell,
+		 int *xPiece,
+		 int *yPiece,
+		 int *idPieceChoose,
+		 Board *boardGame,
+		 Window *plateau,
+		 Score *scorePlayer,
+		 Window *scorePlayerW,
+		 Window *showPiece);
+
+void rotationPiece(Window *plateau,
+		   int *idPieceChoose,
+		   Piece *pieceChoose,
+		   Board *boardGame,
+		   int xPiece,
+		   int yPiece);
 
 #endif

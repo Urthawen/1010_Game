@@ -18,12 +18,6 @@ void game(){
   int currentCell=0;       //Cellule actuelle du joueur
   bool changePiece=true;   //Condition pour changer le pool de pièce
   int idPieceChoose=0;     //id de la pièce choisie par le joueur
-  
-       /***DELETE PLUS TARD**/
-       int chooseId=0;
-       int randomNumber=0;
-       int pieceBan[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-       /*******/ 
   /*****/
   
 
@@ -86,55 +80,16 @@ void game(){
 	break;
       case '\n':
 	playerAction(&plateau,pieceUse,idPieceChoose,&boardGame,&scorePlayer,pieceChoose,currentCell);
-	xPiece=0,yPiece=0;
-	
-	for(int i=0;i<3;i++)
-	  {
-	    if (pieceUse[i]==0){changePiece=false;}
-	  }
-	if(changePiece){
-	  chooseId=0;
-	  while(chooseId<3)
-	    {
-	      randomNumber=rand()%14;
-	      if(pieceBan[randomNumber]==0)
-		{
-		  pieceBan[randomNumber]=1;
-		  pieceChoose[chooseId]=randomTable[randomNumber];
-		  chooseId++;
-		}
-	    }
-	  
-	  showPiece.clear();
-	  pieceChoose[0].drawPiece(&showPiece,4,6);
-	  pieceChoose[1].drawPiece(&showPiece,14,6);
-	  pieceChoose[2].drawPiece(&showPiece,10,11);
-
-	  for(int i=0;i<3;i++){pieceUse[i]=0;}
-	  for(int i=0;i<14;i++){pieceBan[i]=0;}
-	}
-	changePiece=true;
-	currentCell=0;
-	if(idPieceChoose==2){idPieceChoose=0;}
-	else{idPieceChoose++;}
-	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
-	
-	boardGame.refresh(&plateau);
-	scorePlayer.refresh(&scorePlayerW, scorePlayer.getScore());
+        InteractionPiece(pieceUse,randomTable,pieceChoose,&currentCell,&xPiece,&yPiece,&idPieceChoose,&boardGame,&plateau,&scorePlayer,&scorePlayerW, &showPiece);	
 	break;
       case '\t':
-	plateau.clear();
-	if(idPieceChoose==2){idPieceChoose=0;}
-	else{idPieceChoose++;}
-	pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
-	boardGame.refresh(&plateau);
+	rotationPiece(&plateau,&idPieceChoose,pieceChoose,&boardGame,xPiece,yPiece);
 	break;
       }
     }
 }
 
 void displayOption(char **argv){
-  int ch;
   if(strcmp(argv[1],"--authors")==0){
     cout<<"***Authors****"<<endl;
     cout<<"=== Bouffard-Vercelli Florian"<<endl;
