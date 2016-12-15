@@ -143,9 +143,9 @@ void InteractionPiece(int *pieceUse,Piece *randomTable,Piece *pieceChoose,int *c
 	  for(int i=0;i<3;i++){pieceUse[i]=0;}
 	  for(int i=0;i<14;i++){pieceBan[i]=0;}
 	}
-	*currentCell=0;
-	*xPiece=0;
-	*yPiece=0;
+	*currentCell=44;
+	*xPiece=4;
+	*yPiece=4;
 	if(*idPieceChoose==2){*idPieceChoose=0;}
 	else{*idPieceChoose+=1;}
 	pieceChoose[*idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
@@ -188,3 +188,162 @@ void displayOption(char **argv){
   return;
 }
 
+
+bool AutPlayerMove(int mode, Piece piece, int currentCell){
+  bool canMove=true;
+  
+  if(mode==0){
+    if(currentCell<=9){
+      return false;
+    }
+    int i=0;
+    while(i<4 && canMove==true){
+      switch(piece.getComponent(i)){
+      case -1:
+	break;
+      case 0:
+	currentCell+=10;
+	if(currentCell<=9){
+	  canMove=false;
+	}
+	break;
+      case 1:
+	currentCell-=10;
+	if(currentCell<=9){
+	  canMove=false;
+	}
+	break;
+      case 2:
+	currentCell--;
+	if(currentCell<=9){
+	  canMove=false;
+	}
+	break;
+      case 3:
+	currentCell++;
+	if(currentCell<=9){
+	  canMove=false;
+	}
+	break;
+      }
+      i++;
+    }
+  }
+    else if(mode==1){
+      if(currentCell>=90)
+	{
+	  return false;
+	}
+      int i=0;
+    while(i<4 && canMove==true){
+      switch(piece.getComponent(i)){
+      case -1:
+	break;
+      case 0:
+	currentCell+=10;
+	if(currentCell>=90){
+	  canMove=false;
+	}
+	break;
+      case 1:
+	currentCell-=10;
+	if(currentCell>=90){
+	  canMove=false;
+	}
+	break;
+      case 2:
+	currentCell--;
+	if(currentCell>=90){
+	  canMove=false;
+	}
+	break;
+      case 3:
+	currentCell++;
+	if(currentCell>=90){
+	  canMove=false;
+	}
+	break;
+      }
+      i++;
+    }
+    }
+  
+    else if(mode==2){
+      if(currentCell%10==0)
+	{
+	  return false;
+	}
+      int i=0;
+    while(i<4 && canMove==true){
+      switch(piece.getComponent(i)){
+      case -1:
+	break;
+      case 0:
+	currentCell+=10;
+	if(currentCell%10==0){
+	  canMove=false;
+	}
+	break;
+      case 1:
+	currentCell-=10;
+	if(currentCell%10==0){
+	  canMove=false;
+	}
+	break;
+      case 2:
+	currentCell--;
+	if(currentCell%10==0){
+	  canMove=false;
+	}
+	break;
+      case 3:
+	currentCell++;
+	if(currentCell%10==0){
+	  canMove=false;
+	}
+	break;
+      }
+      i++;
+    }
+    }
+    else if(mode==3){
+      if((currentCell+1)%10==0)
+	{
+	  return false;
+	}
+      int i=0;
+    while(i<4 && canMove==true){
+      switch(piece.getComponent(i)){
+      case -1:
+	break;
+      case 0:
+	currentCell+=10;
+	if((currentCell+1)%10==0){
+	  canMove=false;
+	}
+	break;
+      case 1:
+	currentCell-=10;
+	if((currentCell+1)%10==0){
+	  canMove=false;
+	}
+	break;
+      case 2:
+	currentCell--;
+	if((currentCell+1)%10==0){
+	  canMove=false;
+	}
+	break;
+      case 3:
+	currentCell++;
+	if((currentCell+1)%10==0){
+	  canMove=false;
+	}
+	break;
+      }
+      i++;
+    }
+    }
+
+  return canMove;
+}

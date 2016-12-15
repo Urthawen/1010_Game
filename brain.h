@@ -69,4 +69,8 @@ void rotationPiece(Window *plateau,
 
 void displayOption(char **argv);
 
+bool AutPlayerMove(int mode,
+		   Piece piece,
+		   int currentCell);
+
 #endif

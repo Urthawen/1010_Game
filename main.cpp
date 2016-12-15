@@ -14,8 +14,8 @@ void game(){
   int h=10,w=10;           //Hauteur et larguer de la fenêtre Plateau
   srand(time(NULL));       //Random
   int pieceUse[3]={0,0,0}; //Lorsqu'une pièce est utilisée, l'id passe à 1
-  int xPiece=0,yPiece=0;   //Position par défaut de la première pièce
-  int currentCell=0;       //Cellule actuelle du joueur
+  int xPiece=4,yPiece=4;   //Position par défaut de la première pièce
+  int currentCell=44;       //Cellule actuelle du joueur
   bool changePiece=true;   //Condition pour changer le pool de pièce
   int idPieceChoose=0;     //id de la pièce choisie par le joueur
   /*****/
@@ -65,16 +65,25 @@ void game(){
     {
       switch (ch) {
       case KEY_UP:
-	playerMove(0, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
+	if(AutPlayerMove(0, pieceChoose[idPieceChoose], currentCell)){
+	  playerMove(0, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
+	}
+	
 	break;
       case KEY_DOWN:
+	if(AutPlayerMove(1, pieceChoose[idPieceChoose], currentCell)){
 	playerMove(1, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
+	}
 	break;
       case KEY_LEFT:
+	if(AutPlayerMove(2, pieceChoose[idPieceChoose], currentCell)){
 	playerMove(2, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
+	}
 	break;
       case KEY_RIGHT:
+	if(AutPlayerMove(3, pieceChoose[idPieceChoose], currentCell)){
 	playerMove(3, &plateau, &currentCell, &xPiece, &yPiece, &boardGame, pieceChoose, idPieceChoose);
+	}
 	break;
       case '\n':
 	playerAction(&plateau,pieceUse,idPieceChoose,&boardGame,&scorePlayer,pieceChoose,currentCell);
@@ -89,7 +98,6 @@ void game(){
 
 
 int main(int argc, char **argv){
-
   switch(argc){
   case 1:
     startProgramX();
