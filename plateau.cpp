@@ -1,7 +1,9 @@
 #include "plateau.h"
 
 Board::Board(){
-  for(int i=0;i<100;i++){cellBoard[i]=0;}
+  for(int i=0;i<100;i++){
+    cellBoard[i] = 0;
+  }
 }
 
 void Board::readBoard(){
@@ -345,4 +347,8 @@ void Board::destroyField(int i){
 
 void Board::destroyLineField(int i, int j){
 
+}
+
+int Board::readCell(int cell){
+  return cellBoard[cell];
 }

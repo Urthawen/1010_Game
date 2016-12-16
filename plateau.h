@@ -22,7 +22,7 @@ class Board{
   void destroyLine(int i, int *exception);
   void destroyField(int i);
   void destroyLineField(int i, int j);
-  
+  int readCell(int cell);
 };
 
 #endif

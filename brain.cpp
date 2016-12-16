@@ -147,23 +147,25 @@ void InteractionPiece(int *pieceUse,Piece *randomTable,Piece *pieceChoose,int *c
 	*xPiece=4;
 	*yPiece=4;
 	if(*idPieceChoose==2){*idPieceChoose=0;}
-	else{*idPieceChoose+=1;}
-	pieceChoose[*idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
-	
+	else{*idPieceChoose+=1;}	
 	boardGame->refresh(plateau);
+	pieceChoose[*idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
 	scorePlayer->refresh(scorePlayerW, scorePlayer->getScore());
   
   return;
 }
 
 
-void rotationPiece(Window *plateau,int *idPieceChoose,Piece *pieceChoose,Board *boardGame,int xPiece,int yPiece){
+void rotationPiece(Window *plateau,int *idPieceChoose,Piece *pieceChoose,Board *boardGame,int *currentCell, int *xPiece, int *yPiece){
 
   plateau->clear();
   if(*idPieceChoose==2){*idPieceChoose=0;}
   else{*idPieceChoose+=1;}
-  pieceChoose[*idPieceChoose].drawPiece(plateau,xPiece,yPiece);
+  *currentCell = 44;
+  *yPiece = 4;
+  *xPiece = 4;
   boardGame->refresh(plateau);
+  pieceChoose[*idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
   return;
 }
 
@@ -346,4 +348,64 @@ bool AutPlayerMove(int mode, Piece piece, int currentCell){
     }
 
   return canMove;
+}
+
+
+void gameContinue(Board boardGame, Piece *pieceChoose, int *pieceUse, bool *endGame){
+
+  int cellTested;
+  bool canPlace=true;
+  int data;
+  
+  for(int i=0;i<3;i++){
+    if(pieceUse[i]==0){
+      for(int j=0;j<100;j++){
+	if(boardGame.readCell(j)==0){
+	  cellTested = j;
+	  canPlace=true;
+	  data=0;
+	  while(data<4 && canPlace){
+	    switch(pieceChoose[i].getComponent(data)){
+	    case -1:
+	      break;
+	    case 0:
+	      cellTested+=10;
+	      if(cellTested<=99){
+		 if(boardGame.readCell(cellTested)==1){canPlace = false;}
+	      }
+	      else{canPlace=false;}
+	      break;
+	    case 1:
+	      cellTested-=10;
+	      if(cellTested>=0){
+		 if(boardGame.readCell(cellTested)==1){canPlace = false;}
+	      }
+	      else{canPlace=false;}
+	      break;
+	    case 2:
+	      if(cellTested%10!=0){
+		 cellTested--;
+		 if(boardGame.readCell(cellTested)==1){canPlace = false;}
+	      }	     
+	      else{canPlace=false;}
+	      break;
+	    case 3:
+	      if((cellTested+1)%10!=0){
+		 cellTested++;
+		 if(boardGame.readCell(cellTested)==1){canPlace = false;}
+	      }	     
+	      else{canPlace=false;}
+	      break;
+	    }//end_Switch
+	    data++;
+	  }//end_while
+	  if(canPlace){return;}
+	}//end_if	
+      }//end_for (100)
+    }//end_if
+  }//end_for (3)
+
+  *endGame=true;
+  
+  return;
 }

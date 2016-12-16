@@ -64,13 +64,19 @@ void rotationPiece(Window *plateau,
 		   int *idPieceChoose,
 		   Piece *pieceChoose,
 		   Board *boardGame,
-		   int xPiece,
-		   int yPiece);
+		   int *currentCell,
+		   int *xPiece,
+		   int *yPiece);
 
 void displayOption(char **argv);
 
 bool AutPlayerMove(int mode,
 		   Piece piece,
 		   int currentCell);
+
+void gameContinue(Board boardGame,
+		  Piece *pieceChoose,
+		  int *pieceUse,
+		  bool *endGame);
 
 #endif

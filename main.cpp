@@ -18,6 +18,7 @@ void game(){
   int currentCell=44;       //Cellule actuelle du joueur
   bool changePiece=true;   //Condition pour changer le pool de pièce
   int idPieceChoose=0;     //id de la pièce choisie par le joueur
+  bool endGame = false;
   /*****/
   
 
@@ -61,7 +62,7 @@ void game(){
   /*****/
  
   
-  while((ch = getch()) != 'q')
+  while((ch = getch()) != 'q' && !endGame)
     {
       switch (ch) {
       case KEY_UP:
@@ -87,10 +88,11 @@ void game(){
 	break;
       case '\n':
 	playerAction(&plateau,pieceUse,idPieceChoose,&boardGame,&scorePlayer,pieceChoose,currentCell);
-        InteractionPiece(pieceUse,randomTable,pieceChoose,&currentCell,&xPiece,&yPiece,&idPieceChoose,&boardGame,&plateau,&scorePlayer,&scorePlayerW, &showPiece);	
+        InteractionPiece(pieceUse,randomTable,pieceChoose,&currentCell,&xPiece,&yPiece,&idPieceChoose,&boardGame,&plateau,&scorePlayer,&scorePlayerW, &showPiece);
+        gameContinue(boardGame, pieceChoose, pieceUse, &endGame);
 	break;
       case '\t':
-	rotationPiece(&plateau,&idPieceChoose,pieceChoose,&boardGame,xPiece,yPiece);
+	rotationPiece(&plateau,&idPieceChoose,pieceChoose,&boardGame,&currentCell, &xPiece, &yPiece);
 	break;
       }
     }
