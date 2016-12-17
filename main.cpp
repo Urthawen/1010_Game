@@ -98,13 +98,43 @@ void game(){
     }
 }
 
+int menu(){
+   char ch;
+   Window menu(10,30,1,0);
+   menu.setCouleurBordure(BRED);
+   menu.print(10,1,"1010 GAME", WRED);
+   menu.print(2,3,"New game \t==> N");
+   menu.print(2,4,"Load game \t==> P");
+   menu.print(2,6,"Leave game \t==> Q");
+   
+   while((ch = getch()) != 'q')
+    {
+      switch(ch){
+      case 'n':
+	return 1;
+	break;
+      default:
+	break;
+      }
+    }
+
+   return 0;
+}
+
 
 int main(int argc, char **argv){
+  int choice;
   switch(argc){
   case 1:
+    std::cout<<"\033[2J\033[1;1H"; //Clear window
     startProgramX();
-    game();
+    choice = menu();
     stopProgramX();
+    if(choice==1){
+      startProgramX();
+      game();
+      stopProgramX();
+    }      
     break;
   case 2:
     displayOption(argv);
