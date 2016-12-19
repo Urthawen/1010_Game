@@ -1,0 +1,7 @@
+Ce qu'il faut savegarder :
+
+-Les pièeces actuelles
+-Les pièeces utilisées
+-Le plateau
+-Pseudo user
+-Score

@@ -9,12 +9,6 @@ void initGame(Window *menu, Window *bScore, Window *showP, Window *board, Window
 }
 
 void initMenu(Window *window, char *username){
-  char chaine[3];
-
-  chaine[0]='a';
-  chaine[1]='d';
-  chaine[2]='g';
-  
   window->setCouleurBordure(BRED);
   window->print(1,1,username,WRED);
   window->print(1,2,"Push 'Q' for quit");
@@ -24,11 +18,26 @@ void initMenu(Window *window, char *username){
 void initBScore(Window *window){
   window->setCouleurBordure(BRED);
   window->print(1,1,"Bests Score", WRED);
-  window->print(1,2," 15245\t Urthawen");
-  window->print(1,3," 13215\t FreeLP");
-  window->print(1,4," 11124\t Brouken");
-  window->print(1,5," 9758\t Rozsas");
-  window->print(1,6," 9574\t Spitalas");
+  
+  string data[10];
+  int read=0;
+  
+  ifstream file("highscore.txt", ios::in);  // on ouvre le fichier en lecture 
+        if(file)
+        {
+	  file >> data[0] >> data[1] >> data[2] >> data[3] >> data[4] >> data[5] >> data[6] >> data[7] >> data[8] >> data[9];
+	  for(int i=2;i<7;i++){
+	    window->print(2,i,data[read]);
+	    read++;
+	    window->print(12,i,data[read]);
+	    read++;
+	  }
+	  file.close();  // on ferme le fichier
+        }
+        else{
+	  cout << "Impossible d'ouvrir le fichier !" << endl;
+	}
+  //window->print(1,6," 9574\t Spitalas");
   return;
 }
 void initShowP(Window *window){

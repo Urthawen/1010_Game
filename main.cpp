@@ -103,6 +103,10 @@ void game(){
 	break;
       }
     }
+
+  stopProgramX();
+  cout<<"GAME OVER"<<endl;
+  cout<<"Score : "<<scorePlayer.getScore()<<endl;
 }
 
 
@@ -114,8 +118,8 @@ int main(int argc, char **argv){
     std::cout<<"\033[2J\033[1;1H"; //Clear window
     startProgramX();
     choice = menu();
+    stopProgramX();
     if(choice==1){
-      stopProgramX();
       game();
       stopProgramX();
     }      
