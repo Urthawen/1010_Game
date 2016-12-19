@@ -114,3 +114,5 @@ void Window::setCouleurFenetre(Color c){
 }
 
 void Window::clear() const{  werase(win); update(); }
+
+void Window::deleteWindow() const{ erase();}

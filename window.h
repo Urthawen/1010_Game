@@ -71,9 +71,9 @@ class Window {
 
   void clear() const; // enleve tout le contenu de la fenêtre
 
+  void deleteWindow() const;
+
 };
-
-
 
 
 

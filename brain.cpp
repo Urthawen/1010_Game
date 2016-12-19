@@ -1,16 +1,22 @@
 #include "brain.h"
 
-void initGame(Window *menu, Window *bScore, Window *showP, Window *board, Window *scoreP){
-  initMenu(menu);
+void initGame(Window *menu, Window *bScore, Window *showP, Window *board, Window *scoreP, char *username){
+  initMenu(menu, username);
   initBScore(bScore);
   initShowP(showP);
   initBoard(board);
   initScoreP(scoreP);
 }
 
-void initMenu(Window *window){
+void initMenu(Window *window, char *username){
+  char chaine[3];
+
+  chaine[0]='a';
+  chaine[1]='d';
+  chaine[2]='g';
+  
   window->setCouleurBordure(BRED);
-  window->print(1,1,"Urthawen",WRED);
+  window->print(1,1,username,WRED);
   window->print(1,2,"Push 'Q' for quit");
   window->print(1,3,"Push 'S' for save");
   return;
@@ -407,5 +413,35 @@ void gameContinue(Board boardGame, Piece *pieceChoose, int *pieceUse, bool *endG
 
   *endGame=true;
   
+  return;
+}
+
+int menu(){
+   char ch;
+   Window menu(10,30,1,0);
+   menu.setCouleurBordure(BRED);
+   menu.print(10,1,"1010 GAME", WRED);
+   menu.print(2,3,"New game \t==> N");
+   menu.print(2,4,"Load game \t==> P");
+   menu.print(2,6,"Leave game \t==> Q");
+   
+   while((ch = getch()) != 'q')
+    {
+      switch(ch){
+      case 'n':
+	menu.deleteWindow();
+	return 1;
+	break;
+      default:
+	break;
+      }
+    }
+
+   return 0;
+}
+
+void askUsername(char *username){
+  cout<<"Insérer votre pseudo : ";
+  cin>>*username;
   return;
 }

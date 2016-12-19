@@ -8,6 +8,12 @@
 #include <ctime>
 
 void game(){
+
+  /**USERNAME**/
+  char *username = new char[10];
+  std::cout<<"Insérez votre Pseudo : ";
+  std::cin>>username;
+  std::cout<<"\033[2J\033[1;1H"; //Clear window
   
   /**VARIABLES**/
   int ch;                  //Lire le caractère claiver
@@ -28,6 +34,7 @@ void game(){
   /*****/
   
   /**INIT_WINDOW**/
+  startProgramX();
   Window menu(4,30,1,0);
   Window bestScore(8,30,35,0);
   Window showPiece(19,21,1,7);
@@ -56,7 +63,7 @@ void game(){
   /*****/
   
   /**INIT_GAME**/
-  initGame(&menu, &bestScore, &showPiece, &plateau, &scorePlayerW);
+  initGame(&menu, &bestScore, &showPiece, &plateau, &scorePlayerW, username);
   randomChoose(randomTable, pieceChoose, &showPiece);
   pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
   /*****/
@@ -98,40 +105,17 @@ void game(){
     }
 }
 
-int menu(){
-   char ch;
-   Window menu(10,30,1,0);
-   menu.setCouleurBordure(BRED);
-   menu.print(10,1,"1010 GAME", WRED);
-   menu.print(2,3,"New game \t==> N");
-   menu.print(2,4,"Load game \t==> P");
-   menu.print(2,6,"Leave game \t==> Q");
-   
-   while((ch = getch()) != 'q')
-    {
-      switch(ch){
-      case 'n':
-	return 1;
-	break;
-      default:
-	break;
-      }
-    }
-
-   return 0;
-}
-
 
 int main(int argc, char **argv){
   int choice;
+  
   switch(argc){
   case 1:
     std::cout<<"\033[2J\033[1;1H"; //Clear window
     startProgramX();
     choice = menu();
-    stopProgramX();
     if(choice==1){
-      startProgramX();
+      stopProgramX();
       game();
       stopProgramX();
     }      

@@ -6,14 +6,19 @@
 #include "pieces.h"
 #include <cstdlib>
 #include <ctime>
+#include <string>
+#include <sstream>
+
+using namespace std;
 
 void initGame(Window *menu,
 	      Window *bScore,
 	      Window *showP,
 	      Window *board,
-	      Window *scoreP);
+	      Window *scoreP,
+	      char *username);
 
-void initMenu(Window *window);
+void initMenu(Window *window, char *username);
 void initBScore(Window *window);
 void initShowP(Window *window);
 void initBoard(Window *window);
@@ -78,5 +83,9 @@ void gameContinue(Board boardGame,
 		  Piece *pieceChoose,
 		  int *pieceUse,
 		  bool *endGame);
+
+int menu();
+
+void askUsername(char *username);
 
 #endif
