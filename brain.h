@@ -87,6 +87,6 @@ void gameContinue(Board boardGame,
 
 int menu();
 
-void askUsername(char *username);
+void checkHighscore(int score, char *username);
 
 #endif

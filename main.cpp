@@ -107,6 +107,7 @@ void game(){
   stopProgramX();
   cout<<"GAME OVER"<<endl;
   cout<<"Score : "<<scorePlayer.getScore()<<endl;
+  checkHighscore(scorePlayer.getScore(), username);
 }
 
 

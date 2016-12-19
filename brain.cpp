@@ -186,7 +186,7 @@ void rotationPiece(Window *plateau,int *idPieceChoose,Piece *pieceChoose,Board *
 
 void displayOption(char **argv){
   if(strcmp(argv[1],"--authors")==0){
-    cout<<"***Authors****"<<endl;
+    cout<<"****Authors****"<<endl;
     cout<<"=== Bouffard-Vercelli Florian"<<endl;
     cout<<"=== Husson Alexi"<<endl;
     cout<<"=== Capron Yvan"<<endl;
@@ -449,8 +449,78 @@ int menu(){
    return 0;
 }
 
-void askUsername(char *username){
-  cout<<"Insérer votre pseudo : ";
-  cin>>*username;
-  return;
+
+void checkHighscore(int score, char *username){
+  int data[5];
+  string usernameDt[5];
+
+  ifstream readFile("highscore.txt", ios::in);
+  if(readFile){
+    readFile >> data[0] >> usernameDt[0] >> data[1] >> usernameDt[1] >> data[2] >> usernameDt[2] >> data[3] >> usernameDt[3] >> data[4] >> usernameDt[4];
+    readFile.close();
+  }
+  
+  fstream file("highscore.txt", ios::out | ios::trunc);
+        if(file)
+        {
+	   if(score>data[0]){
+	     data[4]=data[3];
+	     usernameDt[4]=usernameDt[3];
+	     
+	     data[3]=data[2];
+	     usernameDt[3]=usernameDt[2];
+	     
+	     data[2]=data[1];
+	     usernameDt[2]=usernameDt[1];
+	     
+	     data[1]=data[0];
+	     usernameDt[1]=usernameDt[0];
+	     
+	      data[0]=score;
+	      usernameDt[0]=username;
+	    }
+	   else if(score>data[1]){
+	      data[4]=data[3];
+	     usernameDt[4]=usernameDt[3];
+	     
+	     data[3]=data[2];
+	     usernameDt[3]=usernameDt[2];
+	     
+	     data[2]=data[1];
+	     usernameDt[2]=usernameDt[1];
+	     
+	      data[1]=score;
+	      usernameDt[1]=username;
+	   }
+	   else if(score>data[2]){
+	      data[4]=data[3];
+	     usernameDt[4]=usernameDt[3];
+	     
+	     data[3]=data[2];
+	     usernameDt[3]=usernameDt[2];
+	     
+	      data[2]=score;
+	      usernameDt[2]=username;
+	   }
+	   else if(score>data[3]){
+	     data[4]=data[3];
+	     usernameDt[4]=usernameDt[3];
+	     
+	      data[3]=score;
+	      usernameDt[3]=username;
+	   }
+	   else if(score>data[4]){
+	      data[4]=score;
+	      usernameDt[4]=username;
+	   }
+
+	   for(int i=0;i<5;i++){
+	    file << data[i] << " " << usernameDt[i]<< endl;
+	   }
+	  
+	  file.close();  // on ferme le fichier
+        }
+        else{
+	  cout << "Impossible d'ouvrir le fichier !" << endl;
+	}
 }
