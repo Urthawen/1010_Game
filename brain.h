@@ -89,4 +89,22 @@ int menu();
 
 void checkHighscore(int score, char *username);
 
+void saveGame(char *username,
+	      Piece *pieceChoose,
+	      int *pieceUse,
+	      Board boardGame,
+	      Score scorePlayer);
+
+void loadSave(Window *menu,
+	      Piece s1,
+	      Piece s2,
+	      Piece s3,
+	      Piece *pieceChoose,
+	      int *pieceUse,
+	      Window *showPiece,
+	      Board *boardGame,
+	      Window *plateau,
+	      Score *scorePlayer,
+	      Window *scorePlayerW);
+
 #endif

@@ -7,13 +7,16 @@
 #include <cstdlib>
 #include <ctime>
 
-void game(){
-
-  /**USERNAME**/
+void game(int gameMode){
+  
   char *username = new char[10];
-  std::cout<<"Insérez votre Pseudo : ";
-  std::cin>>username;
-  std::cout<<"\033[2J\033[1;1H"; //Clear window
+  /**USERNAME**/
+  if(gameMode==0){
+    std::cout<<"Insérez votre Pseudo : ";
+    std::cin>>username;
+    std::cout<<"\033[2J\033[1;1H"; //Clear window
+  }
+ 
   
   /**VARIABLES**/
   int ch;                  //Lire le caractère claiver
@@ -61,11 +64,18 @@ void game(){
   Piece randomTable[14]={p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14};
   Piece pieceChoose[3]={};
   /*****/
+
   
-  /**INIT_GAME**/
   initGame(&menu, &bestScore, &showPiece, &plateau, &scorePlayerW, username);
-  randomChoose(randomTable, pieceChoose, &showPiece);
-  pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+  /**INIT_GAME**/
+  if(gameMode==0){
+    randomChoose(randomTable, pieceChoose, &showPiece);
+    pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
+  }
+  else{
+    Piece s1,s2,s3;
+    loadSave(&menu, s1, s2, s3, pieceChoose, pieceUse, &showPiece, &boardGame, &plateau, &scorePlayer, &scorePlayerW);
+  }
   /*****/
  
   
@@ -101,6 +111,10 @@ void game(){
       case '\t':
 	rotationPiece(&plateau,&idPieceChoose,pieceChoose,&boardGame,&currentCell, &xPiece, &yPiece);
 	break;
+
+      case 's':
+	saveGame(username, pieceChoose, pieceUse, boardGame, scorePlayer);
+	break;
       }
     }
 
@@ -121,9 +135,13 @@ int main(int argc, char **argv){
     choice = menu();
     stopProgramX();
     if(choice==1){
-      game();
+      game(0);
       stopProgramX();
-    }      
+    }
+    else if(choice==2){
+      game(1);
+      stopProgramX();
+    }
     break;
   case 2:
     displayOption(argv);

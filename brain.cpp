@@ -441,6 +441,10 @@ int menu(){
 	menu.deleteWindow();
 	return 1;
 	break;
+      case 'p':
+	menu.deleteWindow();
+	return 2;
+	break;
       default:
 	break;
       }
@@ -521,6 +525,45 @@ void checkHighscore(int score, char *username){
 	  file.close();  // on ferme le fichier
         }
         else{
-	  cout << "Impossible d'ouvrir le fichier !" << endl;
+	 cout << "Impossible d'ouvrir le fichier !" << endl;
 	}
+}
+
+
+void saveGame(char *username, Piece *pieceChoose, int *pieceUse, Board boardGame, Score scorePlayer){  
+   fstream file("save.txt", ios::out | ios::trunc);
+   if(file){
+     //save username
+     file << username << endl;
+     //save pieceChoose
+     for(int i=0;i<3;i++){
+       for(int j=0;j<3;j++){
+	 file << pieceChoose[i].getComponent(j)<<",";
+       }
+       file << pieceChoose[i].getComponent(3)<<endl;
+     }
+     //save pieceUse
+     for(int i=0;i<2;i++){
+       file<<pieceUse[i]<<",";
+     }
+     file<<pieceUse[2]<<endl;
+     //save boardGame
+     for(int i=0;i<99;i++){
+       file << boardGame.readCell(i) << ",";
+     }
+     file << boardGame.readCell(99)<<endl;
+     //save score
+     file << scorePlayer.getScore() <<endl;
+   }
+   else{
+    cout << "error" << endl;
+   }
+  return;
+}
+
+
+void loadSave(Window *menu,Piece s1,Piece s2,Piece s3,Piece *pieceChoose,int *pieceUse,Window *showPiece,Board *boardGame,Window *plateau,Score *scorePlayer,Window *scorePlayerW){
+  
+  ifstream readFile("save.txt", ios::in);
+  return;
 }
