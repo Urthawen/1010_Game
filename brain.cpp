@@ -562,8 +562,131 @@ void saveGame(char *username, Piece *pieceChoose, int *pieceUse, Board boardGame
 }
 
 
-void loadSave(Window *menu,Piece s1,Piece s2,Piece s3,Piece *pieceChoose,int *pieceUse,Window *showPiece,Board *boardGame,Window *plateau,Score *scorePlayer,Window *scorePlayerW){
+void loadSave(Window *menu,Piece *s1,Piece *s2,Piece *s3,Piece *pieceChoose,int *pieceUse,Window *showPiece,Board *boardGame,Window *plateau,Score *scorePlayer,Window *scorePlayerW){
+  
+  string username,piece1,piece2,piece3,pieceBan,dataMap,score;
   
   ifstream readFile("save.txt", ios::in);
+  if(readFile){
+    readFile >> username >> piece1 >> piece2 >> piece3 >> pieceBan >> dataMap >> score;
+    //Pseudo
+    menu->clear();
+    menu->setCouleurBordure(BRED);
+    menu->print(1,1,username,WRED);
+    menu->print(1,2,"Push 'Q' for quit");
+    menu->print(1,3,"Push 'S' for save");
+    //PIECE_1
+    std::string delimiter = ",";
+    size_t pos = 0;
+    int posToken=0;
+    std::string token;
+    while ((pos = piece1.find(delimiter)) != std::string::npos) {
+      token = piece1.substr(0, pos);
+      int temp = atoi(token.c_str());
+      switch(temp){
+      case -1:
+	break;
+      case 0:
+	s1->addComponent(posToken, JDOWN);
+	break;
+      case 1:
+	s1->addComponent(posToken, JUP);
+	break;
+      case 2:
+	s1->addComponent(posToken, JLEFT);
+	break;
+      case 3:
+	s1->addComponent(posToken, JRIGHT);
+	break;
+      }
+      posToken++;
+      piece1.erase(0, pos + delimiter.length());
+    }
+     //PIECE_2
+    pos = 0;
+    posToken=0;
+    while ((pos = piece2.find(delimiter)) != std::string::npos) {
+      token = piece2.substr(0, pos);
+      int temp = atoi(token.c_str());
+      switch(temp){
+      case -1:
+	break;
+      case 0:
+	s2->addComponent(posToken, JDOWN);
+	break;
+      case 1:
+	s2->addComponent(posToken, JUP);
+	break;
+      case 2:
+	s2->addComponent(posToken, JLEFT);
+	break;
+      case 3:
+	s2->addComponent(posToken, JRIGHT);
+	break;
+      }
+      posToken++;
+      piece2.erase(0, pos + delimiter.length());
+    }
+     //PIECE_3
+    pos = 0;
+    posToken=0;
+    while ((pos = piece3.find(delimiter)) != std::string::npos) {
+      token = piece3.substr(0, pos);
+      int temp = atoi(token.c_str());
+      switch(temp){
+      case -1:
+	break;
+      case 0:
+	s3->addComponent(posToken, JDOWN);
+	break;
+      case 1:
+	s3->addComponent(posToken, JUP);
+	break;
+      case 2:
+	s3->addComponent(posToken, JLEFT);
+	break;
+      case 3:
+	s3->addComponent(posToken, JRIGHT);
+	break;
+      }
+      posToken++;
+      piece3.erase(0, pos + delimiter.length());
+    }
+    
+    pieceChoose[0]=*s1;
+    pieceChoose[1]=*s2;
+    pieceChoose[2]=*s3;
+
+    //PIECEBAN
+    pos = 0;
+    int posBan=0;
+    while ((pos = pieceBan.find(delimiter)) != std::string::npos) {
+      token = pieceBan.substr(0, pos);
+      int temp = atoi(token.c_str());
+      pieceUse[posBan]=temp;
+      posBan++;
+      pieceBan.erase(0, pos + delimiter.length());
+    }
+
+    //BOARDGAME
+    pos = 0;
+    int posBoard=0;
+    while ((pos = dataMap.find(delimiter)) != std::string::npos) {
+      token = dataMap.substr(0, pos);
+      int temp = atoi(token.c_str());
+      boardGame->installSave(posBoard,temp);
+      posBoard++;
+      dataMap.erase(0, pos + delimiter.length());
+    }
+
+    //SCORE
+    scorePlayer->setScore(atoi(score.c_str()));
+
+    scorePlayer->refresh(scorePlayerW,scorePlayer->getScore());
+    boardGame->refresh(plateau);
+    pieceChoose[0].drawPiece(showPiece,4,6);
+    pieceChoose[1].drawPiece(showPiece,14,6);
+    pieceChoose[2].drawPiece(showPiece,10,11);
+  }
   return;
 }

@@ -96,9 +96,9 @@ void saveGame(char *username,
 	      Score scorePlayer);
 
 void loadSave(Window *menu,
-	      Piece s1,
-	      Piece s2,
-	      Piece s3,
+	      Piece *s1,
+	      Piece *s2,
+	      Piece *s3,
 	      Piece *pieceChoose,
 	      int *pieceUse,
 	      Window *showPiece,

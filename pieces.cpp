@@ -75,3 +75,7 @@ void Piece::drawPiece(Window *window, int x, int y) {
 }
 
 int Piece::getComponent(int token){return components[token];}
+
+void Piece::addComponent(int pos, PJeton token){
+  components[pos]=token;
+}

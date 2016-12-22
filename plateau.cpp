@@ -352,3 +352,7 @@ void Board::destroyLineField(int i, int j){
 int Board::readCell(int cell){
   return cellBoard[cell];
 }
+
+void Board::installSave(int cell, int data){
+  cellBoard[cell]=data;
+}

@@ -41,6 +41,7 @@ class Piece{
   string learnPiece();
   void drawPiece(Window *window, int x, int y);
   int getComponent(int token);
+  void addComponent(int pos, PJeton token);
   
 };
 

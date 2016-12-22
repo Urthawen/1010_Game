@@ -16,6 +16,12 @@ void game(int gameMode){
     std::cin>>username;
     std::cout<<"\033[2J\033[1;1H"; //Clear window
   }
+  else{
+    ifstream readFile("save.txt", ios::in);
+    if(readFile){
+      readFile >> username;
+    }
+  }
  
   
   /**VARIABLES**/
@@ -74,7 +80,7 @@ void game(int gameMode){
   }
   else{
     Piece s1,s2,s3;
-    loadSave(&menu, s1, s2, s3, pieceChoose, pieceUse, &showPiece, &boardGame, &plateau, &scorePlayer, &scorePlayerW);
+    loadSave(&menu, &s1, &s2, &s3, pieceChoose, pieceUse, &showPiece, &boardGame, &plateau, &scorePlayer, &scorePlayerW);
   }
   /*****/
  

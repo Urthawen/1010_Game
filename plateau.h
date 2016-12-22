@@ -23,6 +23,7 @@ class Board{
   void destroyField(int i);
   void destroyLineField(int i, int j);
   int readCell(int cell);
+  void installSave(int cell, int data);
 };
 
 #endif
