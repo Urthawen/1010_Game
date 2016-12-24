@@ -9,6 +9,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -106,5 +107,7 @@ void loadSave(Window *menu,
 	      Window *plateau,
 	      Score *scorePlayer,
 	      Window *scorePlayerW);
+
+void loadConfig(Piece *randomTable);
 
 #endif

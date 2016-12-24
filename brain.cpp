@@ -37,7 +37,6 @@ void initBScore(Window *window){
         else{
 	  cout << "Impossible d'ouvrir le fichier !" << endl;
 	}
-  //window->print(1,6," 9574\t Spitalas");
   return;
 }
 void initShowP(Window *window){
@@ -689,4 +688,46 @@ void loadSave(Window *menu,Piece *s1,Piece *s2,Piece *s3,Piece *pieceChoose,int 
     pieceChoose[2].drawPiece(showPiece,10,11);
   }
   return;
+}
+
+void loadConfig(Piece *randomTable){
+  ifstream fichier("config.txt", ios::in);
+  if(fichier){
+	    int positionTable=0;
+	    string line;
+	    std::string delimiter = ",";
+	    size_t pos;
+	    int posToken;
+	    std::string token;
+	    while(getline(fichier, line)){
+	      Piece p;
+	      pos = 0;
+	      posToken=0;
+	      while ((pos = line.find(delimiter)) != std::string::npos) {
+		token = line.substr(0, pos);
+		int temp = atoi(token.c_str());
+		switch(temp){
+		case -1:
+		  break;
+		case 0:
+		  p.addComponent(posToken, JDOWN);
+		  break;
+		case 1:
+		  p.addComponent(posToken, JUP);
+		  break;
+		case 2:
+		  p.addComponent(posToken, JLEFT);
+		  break;
+		case 3:
+		  p.addComponent(posToken, JRIGHT);
+		  break;
+		}
+		posToken++;
+		line.erase(0, pos + delimiter.length());
+	      }
+	      randomTable[positionTable]=p;
+	      positionTable++;
+	    }
+	    fichier.close();
+	  }
 }
