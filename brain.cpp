@@ -55,15 +55,30 @@ void initScoreP(Window *window){
   return;
 }
 
-void randomChoose(Piece *randomTable, Piece *pieceChoose, Window *window){  
+void randomChoose(Piece *randomTable, Piece *pieceChoose, Window *window, int nbline){  
   srand(time(NULL));
   int randomNumber =0;
   int chooseId=0;
-  int pieceBan[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-  
+  int* pieceBan = (int*)std::malloc(nbline*sizeof(int));
+
+  for(int i=0;i<nbline;i++){
+    pieceBan[i]=0;
+  }
+  if(nbline==1){
+    pieceChoose[0]=randomTable[0];
+    pieceChoose[1]=randomTable[0];
+    pieceChoose[2]=randomTable[0];
+  }
+  else if(nbline==2){
+    randomNumber=rand()%nbline;
+    pieceChoose[0]=randomTable[0];
+    pieceChoose[1]=randomTable[0];
+    pieceChoose[2]=randomTable[1];
+  }
+  else{
   while(chooseId<3)
     {
-      randomNumber=rand()%14;
+      randomNumber=rand()%nbline;
       if(pieceBan[randomNumber]==0)
 	{
 	  pieceBan[randomNumber]=1;
@@ -71,10 +86,14 @@ void randomChoose(Piece *randomTable, Piece *pieceChoose, Window *window){
 	  chooseId++;
 	}
     }
-
+  
+  }
+  
   pieceChoose[0].drawPiece(window,4,6);
   pieceChoose[1].drawPiece(window,14,6);
   pieceChoose[2].drawPiece(window,10,11);
+
+  free(pieceBan);
 }
 
 
@@ -126,11 +145,15 @@ void playerAction(Window *plateau,int *pieceUse,int idPieceChoose,Board *boardGa
 }
 
 
-void InteractionPiece(int *pieceUse,Piece *randomTable,Piece *pieceChoose,int *currentCell,int *xPiece,int *yPiece,int *idPieceChoose,Board *boardGame,Window *plateau,Score *scorePlayer,Window *scorePlayerW, Window *showPiece){
+void InteractionPiece(int *pieceUse,Piece *randomTable,Piece *pieceChoose,int *currentCell,int *xPiece,int *yPiece,int *idPieceChoose,Board *boardGame,Window *plateau,Score *scorePlayer,Window *scorePlayerW, Window *showPiece, int nbline){
   int chooseId=0;
   int randomNumber=0;
   bool changePiece=true;
-  int pieceBan[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+  int* pieceBan = (int*)std::malloc(nbline*sizeof(int));
+
+  for(int i=0;i<nbline;i++){
+    pieceBan[i]=0;
+  }
 
   for(int i=0;i<3;i++)
 	  {
@@ -138,9 +161,21 @@ void InteractionPiece(int *pieceUse,Piece *randomTable,Piece *pieceChoose,int *c
 	  }
 	if(changePiece){
 	  chooseId=0;
+	   if(nbline==1){
+	     pieceChoose[0]=randomTable[0];
+	     pieceChoose[1]=randomTable[0];
+	     pieceChoose[2]=randomTable[0];
+	   }
+	   else if(nbline==2){
+	     randomNumber=rand()%nbline;
+	     pieceChoose[0]=randomTable[0];
+	     pieceChoose[1]=randomTable[0];
+	     pieceChoose[2]=randomTable[1];
+	   }
+	   else{
 	  while(chooseId<3)
 	    {
-	      randomNumber=rand()%14;
+	      randomNumber=rand()%nbline;
 	      if(pieceBan[randomNumber]==0)
 		{
 		  pieceBan[randomNumber]=1;
@@ -148,14 +183,16 @@ void InteractionPiece(int *pieceUse,Piece *randomTable,Piece *pieceChoose,int *c
 		  chooseId++;
 		}
 	    }
-	  
+	   }
 	  showPiece->clear();
+	  
+	  showPiece->print(2,1,"Pieces Availables", WGREEN);
 	  pieceChoose[0].drawPiece(showPiece,4,6);
 	  pieceChoose[1].drawPiece(showPiece,14,6);
 	  pieceChoose[2].drawPiece(showPiece,10,11);
 
 	  for(int i=0;i<3;i++){pieceUse[i]=0;}
-	  for(int i=0;i<14;i++){pieceBan[i]=0;}
+	  //for(int i=0;i<14;i++){pieceBan[i]=0;}
 	}
 	*currentCell=44;
 	*xPiece=4;
@@ -165,7 +202,7 @@ void InteractionPiece(int *pieceUse,Piece *randomTable,Piece *pieceChoose,int *c
 	boardGame->refresh(plateau);
 	pieceChoose[*idPieceChoose].drawPiece(plateau,*xPiece,*yPiece);
 	scorePlayer->refresh(scorePlayerW, scorePlayer->getScore());
-  
+	free(pieceBan);
   return;
 }
 

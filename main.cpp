@@ -50,9 +50,21 @@ void game(int gameMode){
   Window plateau(h,w,28,15);
   Window scorePlayerW(5,20,41,15);
   /*****/
+
+  /****COUNT_PIECES_CONFIGFILE*****/
+  ifstream file("config.txt", ios::in);
+  int nbline=0;
+  if(file){
+    string line;
+    while(getline(file,line)){
+      nbline++;
+    }
+  }
+  /********/
+
   
   /**CREATE_PIECES**/
-  Piece* randomTable = (Piece*)std::malloc(14*sizeof(Piece));
+  Piece* randomTable = (Piece*)std::malloc(nbline*sizeof(Piece));
   loadConfig(randomTable);
   Piece pieceChoose[3]={};
   /*****/
@@ -61,7 +73,7 @@ void game(int gameMode){
   initGame(&menu, &bestScore, &showPiece, &plateau, &scorePlayerW, username);
   /**INIT_GAME**/
   if(gameMode==0){
-    randomChoose(randomTable, pieceChoose, &showPiece);
+    randomChoose(randomTable, pieceChoose, &showPiece, nbline);
     pieceChoose[idPieceChoose].drawPiece(&plateau,xPiece,yPiece);
   }
   else{
@@ -97,7 +109,7 @@ void game(int gameMode){
 	break;
       case '\n':
 	playerAction(&plateau,pieceUse,idPieceChoose,&boardGame,&scorePlayer,pieceChoose,currentCell);
-        InteractionPiece(pieceUse,randomTable,pieceChoose,&currentCell,&xPiece,&yPiece,&idPieceChoose,&boardGame,&plateau,&scorePlayer,&scorePlayerW, &showPiece);
+        InteractionPiece(pieceUse,randomTable,pieceChoose,&currentCell,&xPiece,&yPiece,&idPieceChoose,&boardGame,&plateau,&scorePlayer,&scorePlayerW, &showPiece, nbline);
         gameContinue(boardGame, pieceChoose, pieceUse, &endGame);
 	break;
       case '\t':
@@ -111,6 +123,7 @@ void game(int gameMode){
     }
 
   stopProgramX();
+  free(randomTable);
   cout<<"GAME OVER"<<endl;
   cout<<"Score : "<<scorePlayer.getScore()<<endl;
   checkHighscore(scorePlayer.getScore(), username);

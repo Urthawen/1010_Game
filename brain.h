@@ -28,7 +28,8 @@ void initScoreP(Window *window);
 
 void randomChoose(Piece *randomTable,
 		  Piece *pieceChoose,
-		  Window *showPiece);
+		  Window *showPiece,
+		  int nbline);
 
 /**
 MOD   0 => MOVE_UP
@@ -65,7 +66,8 @@ void InteractionPiece(int *pieceUse,
 		 Window *plateau,
 		 Score *scorePlayer,
 		 Window *scorePlayerW,
-		 Window *showPiece);
+		 Window *showPiece,
+		 int nbline);
 
 void rotationPiece(Window *plateau,
 		   int *idPieceChoose,
